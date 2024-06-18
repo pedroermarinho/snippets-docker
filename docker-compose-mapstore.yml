@@ -1,0 +1,11 @@
+services:
+  mapstore:
+    image: geosolutionsit/mapstore2:latest
+    container_name: mapstore
+    ports:
+      - "8080:8080"
+    environment:
+      - CATALINA_OPTS=-Xms2g -Xmx2g
+
+volumes:
+  pointcloud_data:

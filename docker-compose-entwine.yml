@@ -1,0 +1,21 @@
+services:
+  entwine:
+    image: connormanning/entwine:3.1.1
+    container_name: entwine
+    volumes:
+      - ./entwine:/entwine
+    entrypoint: ["sh", "-c"]
+    command: ["entwine build -i /entwine/ -o /entwine/build"]
+
+  entwine-server:
+    image: connormanning/http-server
+    container_name: entwine-server
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./entwine:/var/www
+    healthcheck:
+      test: curl --fail "http://localhost:8080" || exit 1
+      interval: 1m
+      retries: 3
+      timeout: 20s

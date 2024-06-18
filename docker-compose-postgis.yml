@@ -1,0 +1,19 @@
+services:
+  postgis:
+    image: postgis/postgis:16-3.4-alpine
+    container_name: postgis
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: geoserver
+      POSTGRES_PASSWORD: geoserver
+    volumes:
+      - postgresql_data:/var/lib/postgresql/data:Z
+    healthcheck:
+      test: pg_isready -U geoserver -h localhost -t 5 || exit 1
+      interval: 10s
+      retries: 5
+      timeout: 10s
+
+volumes:
+  postgresql_data:

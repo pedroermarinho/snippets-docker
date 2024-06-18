@@ -1,0 +1,15 @@
+services:
+  pointcloud:
+    image: pgpointcloud/pointcloud
+    container_name: pointcloud
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: geoserver
+      POSTGRES_PASSWORD: geoserver
+      POSTGRES_DB: geoserver
+    volumes:
+      - pointcloud_data:/var/lib/postgresql/data:Z
+
+volumes:
+  pointcloud_data:
